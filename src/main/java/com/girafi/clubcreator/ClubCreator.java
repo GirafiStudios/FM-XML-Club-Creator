@@ -1,10 +1,12 @@
 package com.girafi.clubcreator;
 
+import com.girafi.clubcreator.helper.Templates;
 import com.girafi.clubcreator.types.ClubBuilder;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class ClubCreator {
@@ -15,7 +17,11 @@ public class ClubCreator {
         try {
             Workbook workbook = WorkbookFactory.create(new File(EXCEL_INPUT));
 
-            ClubBuilder.run(workbook);
+            FileWriter fileWriter = new FileWriter("xmlOutput.xml");
+            fileWriter.write(Templates.startTemplate());;
+            ClubBuilder.run(fileWriter, workbook);
+            fileWriter.write(Templates.endTemplate());
+            fileWriter.close();
 
             workbook.close();
         } catch (IOException e) {

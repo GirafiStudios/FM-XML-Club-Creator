@@ -1,19 +1,15 @@
 package com.girafi.clubcreator.helper;
 
 import com.girafi.clubcreator.ClubCreator;
-import com.girafi.clubcreator.types.ClubBuilder;
-import com.girafi.clubcreator.helper.UtilityHelper;
 
 import java.awt.*;
-
-import static com.girafi.clubcreator.helper.PrintHelper.print;
 
 public class Templates {
 
     //TODO Kits
     //TODO Stadiums
     //TODO Regional Divisions
-    public static String clubDetails(long dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, String yearFounded, String cityID, String rep, String bgCHex, String fgCHex) {
+    public static String club(long dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, String yearFounded, String cityID, String rep, String bgCHex, String fgCHex) {
         int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
         Color fgColor = Color.decode(fgCHex);
         Color bgColor = Color.decode(bgCHex);
