@@ -9,7 +9,7 @@ public class Templates {
     //TODO Kits
     //TODO Stadiums
     //TODO Regional Divisions
-    public static String club(long dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, String yearFounded, String cityID, String rep, String bgCHex, String fgCHex) {
+    public static String club(long dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, String yearFounded, String cityID, String rep, String bgCHex, String fgCHex, String division, String lastDivision) {
         int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
         Color fgColor = Color.decode(fgCHex);
         Color bgColor = Color.decode(bgCHex);
@@ -98,14 +98,14 @@ public class Templates {
                 //Nation (Always Denmark)
                 "\t\t<record>\n" +
                 "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"3554037138238036579\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID +"\"/>\n" +
                 "\t\t\t<unsigned id=\"property\" value=\"1131312233\"/>\n" +
                 "\t\t\t<record id=\"new_value\">\n" +
                 "\t\t\t\t<large id=\"Nnat\" value=\"3281355014908\"/>\n" +
                 "\t\t\t\t<integer id=\"DBID\" value=\"764\"/>\n" +
                 "\t\t\t</record>\n" +
-                "\t\t\t<integer id=\"version\" value=\"3509\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"458086919\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                 "\t\t\t<record id=\"odvl\">\n" +
                 "\t\t\t\t<large id=\"Nnat\" value=\"21474836485\"/>\n" +
                 "\t\t\t</record>\n" +
@@ -115,14 +115,14 @@ public class Templates {
                 //City
                 "\t\t<record>\n" +
                 "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"3554037138238036579\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID +"\"/>\n" +
                 "\t\t\t<unsigned id=\"property\" value=\"1130591353\"/>\n" +
                 "\t\t\t<record id=\"new_value\">\n" +
-                "\t\t\t\t<large id=\"city\" value=\"4034146817955081\"/>\n" +
+                "\t\t\t\t<large id=\"city\" value=\"4034146817955081\"/>\n" + //TODO What is this
                 "\t\t\t\t<integer id=\"DBID\" value=\"" + cityID +"\"/>\n" +
                 "\t\t\t</record>\n" +
-                "\t\t\t<integer id=\"version\" value=\"3509\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"577833981\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                 "\t\t\t<null id=\"odvl\"/>\n" +
                 "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
                 "\t\t</record>" +
@@ -130,11 +130,11 @@ public class Templates {
                 //Year Founded
                 "\t\t<record>\n" +
                 "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"3554037138238036579\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID +"\"/>\n" +
                 "\t\t\t<unsigned id=\"property\" value=\"1132029550\"/>\n" +
                 "\t\t\t<integer id=\"new_value\" value=\"" + yearFounded + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"3509\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"476537685\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                 "\t\t\t<null id=\"odvl\"/>\n" +
                 "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
                 "\t\t</record>" +
@@ -142,10 +142,10 @@ public class Templates {
                 //Reputation
                 "\t\t<record>\n" +
                 "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"3554037138238036579\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID +"\"/>\n" +
                 "\t\t\t<unsigned id=\"property\" value=\"1131570544\"/>\n" +
                 "\t\t\t<integer id=\"new_value\" value=\"" + rep + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"3509\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
                 "\t\t\t<integer id=\"db_random_id\" value=\"159837637\"/>\n" +
                 "\t\t\t<integer id=\"odvl\" value=\"1000\"/>\n" +
                 "\t\t</record>" +
@@ -153,61 +153,61 @@ public class Templates {
                 //Professional Status (Always Amateur) //TODO Test
                 "\t\t<record>\n" +
                 "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"3554037138238036579\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID +"\"/>\n" +
                 "\t\t\t<unsigned id=\"property\" value=\"1131442803\"/>\n" +
                 "\t\t\t<integer id=\"new_value\" value=\"3\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"3509\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"430289970\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                 "\t\t\t<integer id=\"odvl\" value=\"1\"/>\n" +
                 "\t\t</record>" +
 
                 //Background Color
                 "\t\t<record>\n" +
                 "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"3554037138238036579\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID +"\"/>\n" +
                 "\t\t\t<unsigned id=\"property\" value=\"1953784684\"/>\n" +
                 "\t\t\t<colour id=\"new_value\" red=\"" + bgColor.getRed() +"\" green=\"" + bgColor.getGreen() +"\" blue=\"" + bgColor.getBlue() + "\" alpha=\"" + bgColor.getAlpha() + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"3509\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"252405830\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                 "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
                 "\t\t</record>\n" +
 
                 //Foreground Color
                 "\t\t<record>\n" +
                 "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"3554037138238036579\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID +"\"/>\n" +
                 "\t\t\t<unsigned id=\"property\" value=\"1952605036\"/>\n" +
                 "\t\t\t<colour id=\"new_value\" red=\"" + fgColor.getRed() +"\" green=\"" + fgColor.getGreen() +"\" blue=\"" + fgColor.getBlue() + "\" alpha=\"" + fgColor.getAlpha() + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"3509\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"902372646\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                 "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
                 "\t\t</record>" +
 
                 //Division //Todo Test if this is Division or last division
                 "\t\t<record>\n" +
                 "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"3554037138238036579\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID +"\"/>\n" +
                 "\t\t\t<unsigned id=\"property\" value=\"1130657385\"/>\n" +
                 "\t\t\t<record id=\"new_value\">\n" +
-                "\t\t\t\t<large id=\"competition\" value=\"4004816486283868\"/>\n" +
+                "\t\t\t\t<large id=\"competition\" value=\"4004816486283868\"/>\n" + //TODO What is this?
                 "\t\t\t\t<integer id=\"DBID\" value=\"2000170401\"/>\n" +
                 "\t\t\t</record>\n" +
-                "\t\t\t<integer id=\"version\" value=\"3509\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"829117994\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                 "\t\t\t<null id=\"odvl\"/>\n" +
                 "\t\t</record>\n" +
 
-                //Last Division
+                //Last Division //TODO Add Last Division
                 "\t\t<record>\n" +
                 "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"3554037138238036579\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID +"\"/>\n" +
                 "\t\t\t<unsigned id=\"property\" value=\"1131177065\"/>\n" +
                 "\t\t\t<record id=\"new_value\">\n" +
-                "\t\t\t\t<large id=\"competition\" value=\"4004816486283868\"/>\n" +
+                "\t\t\t\t<large id=\"competition\" value=\"4004816486283868\"/>\n" +  //TODO What is this?
                 "\t\t\t\t<integer id=\"DBID\" value=\"932444\"/>\n" +
                 "\t\t\t</record>\n" +
-                "\t\t\t<integer id=\"version\" value=\"3509\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"891713430\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                 "\t\t\t<null id=\"odvl\"/>\n" +
                 "\t\t</record>"
                 ;
