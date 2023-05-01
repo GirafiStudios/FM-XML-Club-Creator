@@ -11,16 +11,16 @@ import java.io.IOException;
 import static com.girafi.clubcreator.helper.SheetHelper.cell;
 import static com.girafi.clubcreator.helper.SheetHelper.cellNumber;
 
-public class ClubBuilder {
+public class CompBuilder {
 
     public static void run(FileWriter fileWriter, Workbook workbook) throws IOException {
-        Sheet sheet = workbook.getSheetAt(0); //Clubs Sheet
+        Sheet sheet = workbook.getSheetAt(1); //Competitions Sheet
 
         //Clubs
         sheet.forEach(row -> {
             if (row.getRowNum() > 0) { //Ignore headers
                 try {
-                    fileWriter.write(Templates.club(ClubCreator.START_CLUB_UNIQUE_ID + row.getRowNum(), cell(row.getCell(0)), cell(row.getCell(1)), cell(row.getCell(2)), cell(row.getCell(3)), cell(row.getCell(4)), cellNumber(row.getCell(5)), cellNumber(row.getCell(6)), cellNumber(row.getCell(7)), cell(row.getCell(8)), cell(row.getCell(9)), cellNumber(row.getCell(10)), cellNumber(row.getCell(11))));
+                    fileWriter.write(Templates.comp(ClubCreator.START_COMP_UNIQUE_ID + row.getRowNum(), cell(row.getCell(0)), cell(row.getCell(1)), cell(row.getCell(2)), cell(row.getCell(3)), cellNumber(row.getCell(4)), cellNumber(row.getCell(5))));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

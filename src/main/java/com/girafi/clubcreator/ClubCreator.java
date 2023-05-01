@@ -2,6 +2,7 @@ package com.girafi.clubcreator;
 
 import com.girafi.clubcreator.helper.Templates;
 import com.girafi.clubcreator.types.ClubBuilder;
+import com.girafi.clubcreator.types.CompBuilder;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
@@ -13,6 +14,7 @@ public class ClubCreator {
     public static final String EXCEL_INPUT = "./clubs.xlsx";
     public static final int FM_XML_ID_VERSION = 3509;
     public static final long START_CLUB_UNIQUE_ID = 2000247394L;
+    public static final long START_COMP_UNIQUE_ID = 2000239372L;
 
     public static void main(String[] args) {
         try {
@@ -21,6 +23,7 @@ public class ClubCreator {
             FileWriter fileWriter = new FileWriter("xmlOutput.xml");
             fileWriter.write(Templates.startTemplate());;
             ClubBuilder.run(fileWriter, workbook);
+            CompBuilder.run(fileWriter, workbook);
             fileWriter.write(Templates.endTemplate());
             fileWriter.close();
 
