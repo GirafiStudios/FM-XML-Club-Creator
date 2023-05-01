@@ -7,9 +7,18 @@ public class UtilityHelper {
     public static long getRandomID() {
         // 9 digits.
         long id = System.currentTimeMillis() % LIMIT;
-        if ( id <= last ) {
+        if (id <= last) {
             id = (last + 1) % LIMIT;
         }
         return last = id;
+    }
+
+    public static boolean isNumeric(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

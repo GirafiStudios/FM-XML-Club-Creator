@@ -1,4 +1,4 @@
-package com.girafi.clubcreator.types;
+package com.girafi.clubcreator.typebuilder;
 
 import com.girafi.clubcreator.ClubCreator;
 import com.girafi.clubcreator.helper.Templates;
