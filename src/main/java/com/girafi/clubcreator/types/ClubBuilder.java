@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import static com.girafi.clubcreator.helper.SheetHelper.cell;
+import static com.girafi.clubcreator.helper.SheetHelper.cellNumber;
 
 public class ClubBuilder {
 
@@ -19,7 +20,7 @@ public class ClubBuilder {
         sheet.forEach(row -> {
             if (row.getRowNum() > 0) { //Ignore headers
                 try {
-                    fileWriter.write(Templates.club(ClubCreator.START_CLUB_UNIQUE_ID + row.getRowNum(), cell(row.getCell(0)), cell(row.getCell(1)), cell(row.getCell(2)), cell(row.getCell(3)), cell(row.getCell(4)), cell(row.getCell(5)), cell(row.getCell(6)), cell(row.getCell(7)), cell(row.getCell(8)), cell(row.getCell(9)), cell(row.getCell(10)), cell(row.getCell(11))));
+                    fileWriter.write(Templates.club(ClubCreator.START_CLUB_UNIQUE_ID + row.getRowNum(), cell(row.getCell(0)), cell(row.getCell(1)), cell(row.getCell(2)), cell(row.getCell(3)), cell(row.getCell(4)), cellNumber(row.getCell(5)), cellNumber(row.getCell(6)), cellNumber(row.getCell(7)), cell(row.getCell(8)), cell(row.getCell(9)), cellNumber(row.getCell(10)), cellNumber(row.getCell(11))));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

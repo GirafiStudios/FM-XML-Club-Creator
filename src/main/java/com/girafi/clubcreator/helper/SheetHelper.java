@@ -7,4 +7,8 @@ public class SheetHelper {
     public static String cell(Cell cell) {
         return cell.toString();
     }
+
+    public static int cellNumber(Cell cell) {
+        return (int) cell.getNumericCellValue();
+    }
 }

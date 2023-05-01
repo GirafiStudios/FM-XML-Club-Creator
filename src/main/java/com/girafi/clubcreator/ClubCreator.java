@@ -12,7 +12,7 @@ import java.io.IOException;
 public class ClubCreator {
     public static final String EXCEL_INPUT = "./clubs.xlsx";
     public static final int FM_XML_ID_VERSION = 3509;
-    public static final long START_CLUB_UNIQUE_ID = 4100000000000000000L;
+    public static final long START_CLUB_UNIQUE_ID = 2000247394L;
 
     public static void main(String[] args) {
         try {
