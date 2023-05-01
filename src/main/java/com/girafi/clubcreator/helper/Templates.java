@@ -3,23 +3,35 @@ package com.girafi.clubcreator.helper;
 import com.girafi.clubcreator.ClubCreator;
 
 import java.awt.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Locale;
 
 public class Templates {
     public static HashMap<String, Integer> parentIDMap = new HashMap<>();
     public static HashMap<String, Integer> divIDMap = new HashMap<>();
+    public static HashMap<String, Integer> cityIDMap = new HashMap<>();
+    public static HashMap<String, Integer> stadiumIDMap = new HashMap<>();
 
     //TODO Kits
     //TODO Stadiums
-    //TODO Regional Divisions
+    //TODO Regional Divisions, based on Competition
     //TODO Figure out what to do with B-Teams. Add Regional Divisions for B-Teams as well, just in case
-    public static String club(int dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, int yearFounded, int cityID, int rep, String fgCHex, String bgCHex, String division, String lastDivision) {
+    public static String club(int dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, int yearFounded, String city, String stadium, int rep, String fgCHex, String bgCHex, String division, String lastDivision) {
         int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
         Color fgColor = Color.decode(fgCHex.toUpperCase(Locale.ROOT));
         Color bgColor = Color.decode(bgCHex.toUpperCase(Locale.ROOT));
+        long cityID = UtilityHelper.isNumeric(city) ? Integer.parseInt(city) : cityIDMap.get(city);
+        //long stadiumID = UtilityHelper.isNumeric(stadium) ? Integer.parseInt(stadium) : stadiumIDMap.get(stadium);
         long divisionID = UtilityHelper.isNumeric(division) ? Integer.parseInt(division) : divIDMap.get(division);
         long lastDivisionID = UtilityHelper.isNumeric(lastDivision) ? Integer.parseInt(lastDivision) : divIDMap.get(lastDivision);
+
+        //Correct name format after adding to map, as HashMaps does not like special letters
+        fullName = new String(fullName.getBytes(StandardCharsets.UTF_8));
+        shortName = new String(shortName.getBytes(StandardCharsets.UTF_8));
+        sixLetterName = new String(sixLetterName.getBytes(StandardCharsets.UTF_8));
+        threeLetterName = new String(threeLetterName.getBytes(StandardCharsets.UTF_8));
+        altTLN = new String(altTLN.getBytes(StandardCharsets.UTF_8));
 
         return
                 //Create new record (Same as clicking the "Add"-button in the editor
@@ -211,6 +223,11 @@ public class Templates {
         if (parent.equalsIgnoreCase("Parent")) {
             parentIDMap.put(fullName, dbUniqueID);
         }
+
+        //Correct name format after adding to map, as HashMaps does not like special letters
+        fullName = new String(fullName.getBytes(StandardCharsets.UTF_8));
+        shortName = new String(shortName.getBytes(StandardCharsets.UTF_8));
+        threeLetterName = new String(threeLetterName.getBytes(StandardCharsets.UTF_8));
 
         String compString =
                 //New Comp
@@ -690,7 +707,154 @@ public class Templates {
         return compString + (parent.equalsIgnoreCase("Parent") ? "" : parentString);
     }
 
-    public static String startTemplate() {
+    public static String stadium(int dbUniqueID, String name, String ownerType, int capacity, String seatCapacity, String pitchType, String pitchCondition, String pitchDetRate, String pitchRecRate, int stadiumCondition, String environment) {
+        int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
+
+        int cityID = 0; //TODO Add based on clubs city
+
+        name = new String(name.getBytes(StandardCharsets.UTF_8)); //Correct name format after adding to map, as HashMaps does not like special letters
+
+        return ""
+                ;
+    }
+
+    public static String city(int dbUniqueID, String name, int regionID, int attraction, String inhabitants, double latitude, double longitude, int altitude) {
+        int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
+
+        cityIDMap.put(name, dbUniqueID);
+
+        name = new String(name.getBytes(StandardCharsets.UTF_8)); //Correct name format after adding to map, as HashMaps does not like special letters
+
+        System.out.println("CITY: " + name);
+
+        return
+                //City Add
+                "\t\t<record>\n" +
+                "\t\t\t<integer id=\"database_table_type\" value=\"55\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"4294967297\"/>\n" +
+                "\t\t\t<unsigned id=\"property\" value=\"1094992978\"/>\n" +
+                "\t\t\t<record id=\"new_value\">\n" +
+                "\t\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                "\t\t\t\t<integer id=\"dcty\" value=\"0\"/>\n" +
+                "\t\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                "\t\t\t</record>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                "\t\t</record>\n" +
+
+                //City Name
+                "\t\t<record>\n" +
+                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                "\t\t\t<unsigned id=\"property\" value=\"1131307373\"/>\n" +
+                "\t\t\t<string id=\"new_value\" value=\"" + name + "\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                "\t\t\t<boolean id=\"is_language_field\" value=\"true\"/>\n" +
+                "\t\t</record>\n" +
+
+                 //Nation (Always Denmark)
+                "\t\t<record>\n" +
+                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                "\t\t\t<unsigned id=\"property\" value=\"1131312233\"/>\n" +
+                "\t\t\t<record id=\"new_value\">\n" +
+                "\t\t\t\t<large id=\"Nnat\" value=\"3281355014908\"/>\n" +
+                "\t\t\t\t<integer id=\"DBID\" value=\"764\"/>\n" +
+                "\t\t\t</record>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                "\t\t</record>\n" +
+
+                //Local Region
+                "\t\t<record>\n" +
+                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                "\t\t\t<unsigned id=\"property\" value=\"1131180649\"/>\n" +
+                "\t\t\t<record id=\"new_value\">\n" +
+                "\t\t\t\t<integer id=\"lcrg\" value=\"" + regionID + "\"/>\n" +
+                "\t\t\t</record>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                "\t\t</record>\n" +
+
+                //Attraction
+                "\t\t<record>\n" +
+                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                "\t\t\t<unsigned id=\"property\" value=\"1130460276\"/>\n" +
+                "\t\t\t<integer id=\"new_value\" value=\"" + attraction + "\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                "\t\t</record>\n" +
+
+                //Inhabitants Range
+                "\t\t<record>\n" +
+                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                "\t\t\t<unsigned id=\"property\" value=\"1130983016\"/>\n" +
+                "\t\t\t<integer id=\"new_value\" value=\"" + UtilityHelper.getInhabitantsRage(inhabitants) +"\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                "\t\t\t<integer id=\"odvl\" value=\"1\"/>\n" +
+                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                "\t\t</record>" +   
+                        
+                //Latitude
+                "\t\t<record>\n" +
+                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                "\t\t\t<unsigned id=\"property\" value=\"1131176308\"/>\n" +
+                "\t\t\t<float id=\"new_value\" value=\"" + latitude + "\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                "\t\t</record>\n" +
+
+                //Longitude
+                "\t\t<record>\n" +
+                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                "\t\t\t<unsigned id=\"property\" value=\"1131179886\"/>\n" +
+                "\t\t\t<float id=\"new_value\" value=\"" + longitude + "\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                "\t\t</record>\n" +
+
+                //Altitude
+                "\t\t<record>\n" +
+                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                "\t\t\t<unsigned id=\"property\" value=\"1130458228\"/>\n" +
+                "\t\t\t<integer id=\"new_value\" value=\"" + altitude + "\"/>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                "\t\t</record>\n" +
+
+                //Weather (Always Danish)        
+                "\t\t<record>\n" +
+                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                "\t\t\t<unsigned id=\"property\" value=\"1131898209\"/>\n" +
+                "\t\t\t<record id=\"new_value\">\n" +
+                "\t\t\t\t<large id=\"wthr\" value=\"7310472426158294\"/>\n" +
+                "\t\t\t\t<integer id=\"DBID\" value=\"1702102\"/>\n" +
+                "\t\t\t</record>\n" +
+                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                "\t\t</record>\n"
+                ;
+    }
+
+        public static String startTemplate() {
         return "<record>\n" +
                 "\t<list id=\"verf\"/>\n" +
                 "\t<list id=\"db_changes\">\n";

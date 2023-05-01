@@ -9,6 +9,10 @@ public class SheetHelper {
     }
 
     public static int cellNumber(Cell cell) {
-        return (int) cell.getNumericCellValue();
+        return (int) cellDouble(cell);
+    }
+
+    public static double cellDouble(Cell cell) {
+        return cell.getNumericCellValue();
     }
 }
