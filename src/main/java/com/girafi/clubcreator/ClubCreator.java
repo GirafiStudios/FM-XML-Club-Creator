@@ -18,7 +18,7 @@ public class ClubCreator {
     public static final int FM_XML_ID_VERSION = 3509;
     public static final int START_CLUB_UNIQUE_ID = 2000247394;
     public static final int START_COMP_UNIQUE_ID = 2000239372;
-    public static final int START_STADIUM_UNIQUE_ID = 2000225000; //TODO
+    public static final int START_STADIUM_UNIQUE_ID = 2000248723;
     public static final int START_CITY_UNIQUE_ID = 2000247169;
 
     public static void main(String[] args) {
