@@ -14,7 +14,6 @@ public class Templates {
     public static HashMap<String, Integer> stadiumIDMap = new HashMap<>();
 
     //TODO Kits
-    //TODO Stadiums
     //TODO Regional Divisions, based on Competition
     //TODO Figure out what to do with B-Teams. Add Regional Divisions for B-Teams as well, just in case
     public static String club(int dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, int yearFounded, String city, String stadium, int rep, String fgCHex, String bgCHex, String division, String lastDivision) {
@@ -22,7 +21,7 @@ public class Templates {
         Color fgColor = Color.decode(fgCHex.toUpperCase(Locale.ROOT));
         Color bgColor = Color.decode(bgCHex.toUpperCase(Locale.ROOT));
         long cityID = UtilityHelper.isNumeric(city) ? Integer.parseInt(city) : cityIDMap.get(city);
-        //long stadiumID = UtilityHelper.isNumeric(stadium) ? Integer.parseInt(stadium) : stadiumIDMap.get(stadium);
+        long stadiumID = UtilityHelper.isNumeric(stadium) ? Integer.parseInt(stadium) : stadiumIDMap.get(stadium);
         long divisionID = UtilityHelper.isNumeric(division) ? Integer.parseInt(division) : divIDMap.get(division);
         long lastDivisionID = UtilityHelper.isNumeric(lastDivision) ? Integer.parseInt(lastDivision) : divIDMap.get(lastDivision);
 
@@ -209,6 +208,94 @@ public class Templates {
                         "\t\t\t<record id=\"new_value\">\n" +
                         "\t\t\t\t<integer id=\"competition\" value=\"" + lastDivisionID + "\"/>\n" +
                         "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>" +
+
+                        //Stadium
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1131639913\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<integer id=\"stad\" value=\"" + stadiumID + "\"/>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //Attendance (Just defaulted to this)
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1130460260\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"20\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1131245153\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"10\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"582574739\"/>\n" +
+                        "\t\t</record>\n" +
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1131247713\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"80\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //Facilities (Defaulted all to 1)
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1131703414\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"1\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"694781365\"/>\n" +
+                        "\t\t</record>\n" +
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1132033142\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"1\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1132029538\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"1\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1131570018\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"1\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1132030317\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"1\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1130587717\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"1\"/>\n" +
                         "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
                         "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                         "\t\t</record>"
@@ -707,208 +794,196 @@ public class Templates {
         return compString + (parent.equalsIgnoreCase("Parent") ? "" : parentString);
     }
 
-    public static String stadium(int dbUniqueID, String name, String ownerType, double latitude, double longitude, int capacity, int seatCapacity, String pitchType, int pitchCondition, String pitchDetRate, int pitchRecRate, String stadiumCondition, String environment) {
+    public static String stadium(int dbUniqueID, String name, String city, String ownerType, double latitude, double longitude, int capacity, int seatCapacity, String pitchType, int pitchCondition, String pitchDetRate, int pitchRecRate, String stadiumCondition, String environment) {
         int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
 
-        int cityID = 0; //TODO Add based on clubs city
+        long cityID = UtilityHelper.isNumeric(city) ? Integer.parseInt(city) : cityIDMap.get(city);
 
+        stadiumIDMap.put(name, dbUniqueID);
         name = new String(name.getBytes(StandardCharsets.UTF_8)); //Correct name format after adding to map, as HashMaps does not like special letters
 
         return
                 //Stadium Add
                 "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"55\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"4294967297\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1094992978\"/>\n" +
-                "\t\t\t<record id=\"new_value\">\n" +
-                "\t\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t\t<integer id=\"dcty\" value=\"0\"/>\n" +
-                "\t\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t</record>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"55\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"4294967297\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1094992978\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t\t<integer id=\"dcty\" value=\"0\"/>\n" +
+                        "\t\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Name
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399742829\"/>\n" +
-                "\t\t\t<string id=\"new_value\" value=\"" + name + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<string id=\"odvl\" value=\"\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t\t<boolean id=\"is_language_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        //Name
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399742829\"/>\n" +
+                        "\t\t\t<string id=\"new_value\" value=\"" + name + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t\t<boolean id=\"is_language_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //City
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399026793\"/>\n" +
-                "\t\t\t<record id=\"new_value\">\n" +
-                "\t\t\t\t<integer id=\"city\" value=\"" + cityID + "\"/>\n" +
-                "\t\t\t</record>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<null id=\"odvl\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        //City
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399026793\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<integer id=\"city\" value=\"" + cityID + "\"/>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Owner Type
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399813241\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"" + ownerType + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<null id=\"odvl\"/>\n" +
-                "\t\t</record>\n" +
+                        //Owner Type
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399813241\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"" + UtilityHelper.getStadiumOwnerType(ownerType) + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Seat Color (Just defaulted to whatever is set here)
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1400071020\"/>\n" +
-                "\t\t\t<colour id=\"new_value\" red=\"224\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t</record>\n" +
+                        //Seat Color (Just defaulted to whatever is set here)
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1400071020\"/>\n" +
+                        "\t\t\t<colour id=\"new_value\" red=\"224\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Is Training Ground (Always True)
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399420007\"/>\n" +
-                "\t\t\t<boolean id=\"new_value\" value=\"true\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<boolean id=\"odvl\" value=\"false\"/>\n" +
-                "\t\t</record>\n" +
+                        //Is Training Ground (Always True)
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399420007\"/>\n" +
+                        "\t\t\t<boolean id=\"new_value\" value=\"true\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Capacity
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399025785\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"" + capacity + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<integer id=\"odvl\" value=\"0\"/>\n" +
-                "\t\t</record>\n" +
+                        //Capacity
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399025785\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"" + capacity + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Seating Capacity
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1400071033\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"" + seatCapacity + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<integer id=\"odvl\" value=\"0\"/>\n" +
-                "\t\t</record>" +        
+                        //Seating Capacity
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1400071033\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"" + seatCapacity + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>" +
 
-                //Expansion Capacity (Defaulted to 5000)
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399153529\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"5000\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t</record>\n" +
+                        //Expansion Capacity (Defaulted to 5000)
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399153529\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"5000\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Pitch Type
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399878777\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"" + UtilityHelper.getPitchType(pitchType) + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<integer id=\"odvl\" value=\"1\"/>\n" +
-                "\t\t</record>\n" +
+                        //Pitch Type
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399878777\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"" + UtilityHelper.getPitchType(pitchType) + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Pitch Condition
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399878755\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"" + pitchCondition + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<integer id=\"odvl\" value=\"200\"/>\n" +
-                "\t\t</record>\n" +
+                        //Pitch Condition
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399878755\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"" + pitchCondition + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Pitch Deterioration
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399092338\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"" + UtilityHelper.getPitchDeterioration(pitchDetRate) + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t</record>\n" +
+                        //Pitch Deterioration
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399092338\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"" + UtilityHelper.getPitchDeterioration(pitchDetRate) + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Pitch Recovery Rate
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399878258\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"" + pitchRecRate + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<integer id=\"odvl\" value=\"10\"/>\n" +
-                "\t\t</record>\n" +
+                        //Pitch Recovery Rate
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399878258\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"" + pitchRecRate + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Latitude
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399611764\"/>\n" +
-                "\t\t\t<float id=\"new_value\" value=\"" + latitude +"\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<float id=\"odvl\" value=\"0.000000\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        //Latitude
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399611764\"/>\n" +
+                        "\t\t\t<float id=\"new_value\" value=\"" + latitude + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Longitude
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399615342\"/>\n" +
-                "\t\t\t<float id=\"new_value\" value=\"" + longitude + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<float id=\"odvl\" value=\"0.000000\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        //Longitude
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399615342\"/>\n" +
+                        "\t\t\t<float id=\"new_value\" value=\"" + longitude + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Pitch Condition
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1400075365\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"" + UtilityHelper.getStadiumCondition(stadiumCondition) + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<integer id=\"odvl\" value=\"0\"/>\n" +
-                "\t\t</record>\n" +
+                        //Pitch Condition
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1400075365\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"" + UtilityHelper.getStadiumCondition(stadiumCondition) + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Environment
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1399156342\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"" + UtilityHelper.getStadiumEnvironment(environment) + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<integer id=\"odvl\" value=\"0\"/>\n" +
-                "\t\t</record>\n"
+                        //Environment
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"21\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1399156342\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"" + UtilityHelper.getStadiumEnvironment(environment) + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>\n"
                 ;
     }
 
@@ -916,135 +991,131 @@ public class Templates {
         int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
 
         cityIDMap.put(name, dbUniqueID);
-
         name = new String(name.getBytes(StandardCharsets.UTF_8)); //Correct name format after adding to map, as HashMaps does not like special letters
-
-        System.out.println("CITY: " + name);
 
         return
                 //City Add
                 "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"55\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"4294967297\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1094992978\"/>\n" +
-                "\t\t\t<record id=\"new_value\">\n" +
-                "\t\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
-                "\t\t\t\t<integer id=\"dcty\" value=\"0\"/>\n" +
-                "\t\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t</record>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"55\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"4294967297\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1094992978\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                        "\t\t\t\t<integer id=\"dcty\" value=\"0\"/>\n" +
+                        "\t\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //City Name
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1131307373\"/>\n" +
-                "\t\t\t<string id=\"new_value\" value=\"" + name + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t\t<boolean id=\"is_language_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        //City Name
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1131307373\"/>\n" +
+                        "\t\t\t<string id=\"new_value\" value=\"" + name + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t\t<boolean id=\"is_language_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                 //Nation (Always Denmark)
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1131312233\"/>\n" +
-                "\t\t\t<record id=\"new_value\">\n" +
-                "\t\t\t\t<large id=\"Nnat\" value=\"3281355014908\"/>\n" +
-                "\t\t\t\t<integer id=\"DBID\" value=\"764\"/>\n" +
-                "\t\t\t</record>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        //Nation (Always Denmark)
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1131312233\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<large id=\"Nnat\" value=\"3281355014908\"/>\n" +
+                        "\t\t\t\t<integer id=\"DBID\" value=\"764\"/>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Local Region
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1131180649\"/>\n" +
-                "\t\t\t<record id=\"new_value\">\n" +
-                "\t\t\t\t<integer id=\"lcrg\" value=\"" + regionID + "\"/>\n" +
-                "\t\t\t</record>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        //Local Region
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1131180649\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<integer id=\"lcrg\" value=\"" + regionID + "\"/>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Attraction
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1130460276\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"" + attraction + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        //Attraction
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1130460276\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"" + attraction + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Inhabitants Range
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1130983016\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"" + UtilityHelper.getInhabitantsRage(inhabitants) +"\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<integer id=\"odvl\" value=\"1\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>" +
+                        //Inhabitants Range
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1130983016\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"" + UtilityHelper.getInhabitantsRage(inhabitants) + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>" +
 
-                //Latitude
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1131176308\"/>\n" +
-                "\t\t\t<float id=\"new_value\" value=\"" + latitude + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        //Latitude
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1131176308\"/>\n" +
+                        "\t\t\t<float id=\"new_value\" value=\"" + latitude + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Longitude
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1131179886\"/>\n" +
-                "\t\t\t<float id=\"new_value\" value=\"" + longitude + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        //Longitude
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1131179886\"/>\n" +
+                        "\t\t\t<float id=\"new_value\" value=\"" + longitude + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Altitude
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1130458228\"/>\n" +
-                "\t\t\t<integer id=\"new_value\" value=\"" + altitude + "\"/>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n" +
+                        //Altitude
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1130458228\"/>\n" +
+                        "\t\t\t<integer id=\"new_value\" value=\"" + altitude + "\"/>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
 
-                //Weather (Always Danish)
-                "\t\t<record>\n" +
-                "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
-                "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
-                "\t\t\t<unsigned id=\"property\" value=\"1131898209\"/>\n" +
-                "\t\t\t<record id=\"new_value\">\n" +
-                "\t\t\t\t<large id=\"wthr\" value=\"7310472426158294\"/>\n" +
-                "\t\t\t\t<integer id=\"DBID\" value=\"1702102\"/>\n" +
-                "\t\t\t</record>\n" +
-                "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
-                "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
-                "\t\t</record>\n"
+                        //Weather (Always Danish)
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"2\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1131898209\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<large id=\"wthr\" value=\"7310472426158294\"/>\n" +
+                        "\t\t\t\t<integer id=\"DBID\" value=\"1702102\"/>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n"
                 ;
     }
 

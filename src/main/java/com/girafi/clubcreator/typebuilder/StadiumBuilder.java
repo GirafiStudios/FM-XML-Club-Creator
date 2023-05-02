@@ -19,7 +19,7 @@ public class StadiumBuilder {
         sheet.forEach(row -> {
             if (row.getRowNum() > 0) { //Ignore headers
                 try {
-                    fileWriter.write(Templates.stadium(ClubCreator.START_STADIUM_UNIQUE_ID + row.getRowNum(), cell(row.getCell(0)), cell(row.getCell(1)), cellDouble(row.getCell(2)), cellDouble(row.getCell(3)), cellNumber(row.getCell(4)), cellNumber(row.getCell(5)), cell(row.getCell(6)), cellNumber(row.getCell(7)), cell(row.getCell(8)), cellNumber(row.getCell(9)), cell(row.getCell(10)), cell(row.getCell(11))));
+                    fileWriter.write(Templates.stadium(ClubCreator.START_STADIUM_UNIQUE_ID + row.getRowNum(), cell(row.getCell(0)), cell(row.getCell(1)), cell(row.getCell(2)), cellDouble(row.getCell(3)), cellDouble(row.getCell(4)), cellNumber(row.getCell(5)), cellNumber(row.getCell(6)), cell(row.getCell(7)), cellNumber(row.getCell(8)), cell(row.getCell(9)), cellNumber(row.getCell(10)), cell(row.getCell(11)), cell(row.getCell(12))));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

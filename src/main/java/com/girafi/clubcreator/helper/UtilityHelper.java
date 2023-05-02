@@ -43,6 +43,17 @@ public class UtilityHelper {
         };
     }
 
+    public static int getStadiumOwnerType(String input) {
+        return switch (input) {
+            case "Club" -> 1;
+            case "Council" -> 2;
+            case "Private" -> 3;
+            case "Chairperson" -> 4;
+            case "Fans" -> 5;
+            default -> 2;
+        };
+    }
+
     public static int getPitchType(String input) {
         return switch (input) {
             case "Grass" -> 1;
