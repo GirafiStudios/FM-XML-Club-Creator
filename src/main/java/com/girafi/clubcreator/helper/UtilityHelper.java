@@ -30,6 +30,17 @@ public class UtilityHelper {
         return Color.decode(xssfColor.getARGBHex().replaceFirst("FF", "#"));
     }
 
+    public static Color textColor(Color fgC, Color bgC, Color defaultBackTo) {
+        if (fgC.equals(bgC)) {
+            if (fgC.equals(Color.BLACK)) {
+                return Color.WHITE;
+            } else {
+                return Color.BLACK;
+            }
+        }
+        return defaultBackTo;
+    }
+
     public static int getInhabitantsRage(String input) {
         return switch (input) {
             case "0 - 1000" -> 1;
