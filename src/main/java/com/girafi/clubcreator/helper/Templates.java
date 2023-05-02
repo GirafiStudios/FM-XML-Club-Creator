@@ -1,6 +1,7 @@
 package com.girafi.clubcreator.helper;
 
 import com.girafi.clubcreator.ClubCreator;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 
 import java.awt.*;
 import java.nio.charset.StandardCharsets;
@@ -16,10 +17,11 @@ public class Templates {
     //TODO Kits
     //TODO Regional Divisions, based on Competition
     //TODO Figure out what to do with B-Teams. Add Regional Divisions for B-Teams as well, just in case
-    public static String club(int dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, int yearFounded, String city, String stadium, int rep, String fgCHex, String bgCHex, String division, String lastDivision) {
+    //TODO Make get colors from background of cell, instead of string. Would make kit creation way more user friendly as well
+    public static String club(int dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, int yearFounded, String city, String stadium, int rep, XSSFColor fgColorCell, XSSFColor bgColorCell, String division, String lastDivision) {
         int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
-        Color fgColor = Color.decode(fgCHex.toUpperCase(Locale.ROOT));
-        Color bgColor = Color.decode(bgCHex.toUpperCase(Locale.ROOT));
+        Color fgColor = Color.decode(fgColorCell.getARGBHex().replaceFirst("FF", "#"));
+        Color bgColor = Color.decode(bgColorCell.getARGBHex().replaceFirst("FF", "#"));
         long cityID = UtilityHelper.isNumeric(city) ? Integer.parseInt(city) : cityIDMap.get(city);
         long stadiumID = UtilityHelper.isNumeric(stadium) ? Integer.parseInt(stadium) : stadiumIDMap.get(stadium);
         long divisionID = UtilityHelper.isNumeric(division) ? Integer.parseInt(division) : divIDMap.get(division);
