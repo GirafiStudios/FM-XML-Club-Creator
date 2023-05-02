@@ -6,7 +6,6 @@ import org.apache.poi.xssf.usermodel.XSSFColor;
 import java.awt.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class Templates {
     public static HashMap<String, Integer> parentIDMap = new HashMap<>();
@@ -17,11 +16,10 @@ public class Templates {
     //TODO Kits
     //TODO Regional Divisions, based on Competition
     //TODO Figure out what to do with B-Teams. Add Regional Divisions for B-Teams as well, just in case
-    //TODO Make get colors from background of cell, instead of string. Would make kit creation way more user friendly as well
-    public static String club(int dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, int yearFounded, String city, String stadium, int rep, XSSFColor fgColorCell, XSSFColor bgColorCell, String division, String lastDivision) {
+    public static String club(int dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, int yearFounded, String city, String stadium, int rep, XSSFColor fgColorCell, XSSFColor bgColorCell, String division, String lastDivision, String homeKitType, XSSFColor homeKitFG, XSSFColor homeKitBG, String awayKitType, XSSFColor awayKitFG, XSSFColor awayKitBG) {
         int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
-        Color fgColor = Color.decode(fgColorCell.getARGBHex().replaceFirst("FF", "#"));
-        Color bgColor = Color.decode(bgColorCell.getARGBHex().replaceFirst("FF", "#"));
+        Color fgColor = UtilityHelper.toColor(fgColorCell);
+        Color bgColor = UtilityHelper.toColor(bgColorCell);
         long cityID = UtilityHelper.isNumeric(city) ? Integer.parseInt(city) : cityIDMap.get(city);
         long stadiumID = UtilityHelper.isNumeric(stadium) ? Integer.parseInt(stadium) : stadiumIDMap.get(stadium);
         long divisionID = UtilityHelper.isNumeric(division) ? Integer.parseInt(division) : divIDMap.get(division);
@@ -300,7 +298,9 @@ public class Templates {
                         "\t\t\t<integer id=\"new_value\" value=\"1\"/>\n" +
                         "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
                         "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                        "\t\t</record>"
+                        "\t\t</record>" +
+
+                        kit(dbUniqueID, homeKitType, homeKitFG, homeKitBG, awayKitType, awayKitFG, awayKitBG)
                 ;
     }
 
@@ -1118,6 +1118,1027 @@ public class Templates {
                         "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                         "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
                         "\t\t</record>\n"
+                ;
+    }
+
+    public static String kit(int dbUniqueID, String homeKitType, XSSFColor homeKitFG, XSSFColor homeKitBG, String awayKitType, XSSFColor awayKitFG, XSSFColor awayKitBG) {
+        int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
+
+        Color homeKitFGColor = UtilityHelper.toColor(homeKitFG);
+        Color homeKitBGColor = UtilityHelper.toColor(homeKitBG);
+        Color awayKitFGColor = UtilityHelper.toColor(awayKitFG);
+        Color awayKitBGColor = UtilityHelper.toColor(awayKitBG);
+
+        return
+                        //Home Start\\
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1651471220\"/>\n" +
+                        "\t\t\t\t<integer id=\"value\" value=\"0\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802073203\"/>\n" +
+                        "\t\t\t\t<integer id=\"value\" value=\"1\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802724967\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802723943\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802727285\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1852662636\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1852665699\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802723943\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"2\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802727285\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"2\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1852662636\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"2\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802723943\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"3\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802727285\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"3\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802724967\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"3\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+
+                        //
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802724967\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"4\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802723943\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"4\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802727285\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"4\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1852662636\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"4\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1852665699\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"4\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802724967\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"5\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326961\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802723943\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"5\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"0\" green=\"0\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>" +
+
+                        //Away Start\\
+                        //
+                        "<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802073203\"/>\n" +
+                        "\t\t\t\t<integer id=\"value\" value=\"2\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802724967\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"2\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802723943\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"2\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802727285\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"2\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1852662636\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"2\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802723943\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"2\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802727285\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"2\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1852662636\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"2\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+
+                        //
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802724967\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"3\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+                                
+                        //        
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802723943\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"3\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+                                
+                        //        
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802724967\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"4\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+                                
+                        //        
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802724967\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"4\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+                                
+                        //        
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802723943\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"4\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+                                
+                        //        
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1852662636\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"4\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+                                
+                        //        
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802724967\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"5\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>\n" +
+                                
+                        //        
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1416326962\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1802723943\"/>\n" +
+                        "\t\t\t\t<colour id=\"value\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<integer id=\"kits\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"bost\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"kit_part\" value=\"5\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksfg\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksbg\" red=\"255\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"ksou\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmcl\" red=\"255\" green=\"255\" blue=\"255\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<colour id=\"nmoc\" red=\"0\" green=\"0\" blue=\"0\" alpha=\"255\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"ktal\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<null id=\"competition\"/>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t\t<boolean id=\"is_client_field\" value=\"true\"/>\n" +
+                        "\t\t</record>"
                 ;
     }
 

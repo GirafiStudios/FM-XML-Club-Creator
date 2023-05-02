@@ -1,5 +1,9 @@
 package com.girafi.clubcreator.helper;
 
+import org.apache.poi.xssf.usermodel.XSSFColor;
+
+import java.awt.*;
+
 public class UtilityHelper {
     private static final long LIMIT = 1000000000L;
     private static long last = 0;
@@ -20,6 +24,10 @@ public class UtilityHelper {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public static Color toColor(XSSFColor xssfColor) {
+        return Color.decode(xssfColor.getARGBHex().replaceFirst("FF", "#"));
     }
 
     public static int getInhabitantsRage(String input) {
