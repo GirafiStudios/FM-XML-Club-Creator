@@ -13,7 +13,6 @@ public class Templates {
     public static HashMap<String, Integer> cityIDMap = new HashMap<>();
     public static HashMap<String, Integer> stadiumIDMap = new HashMap<>();
 
-    //TODO Regional Divisions, based on Competition
     //TODO Figure out what to do with B-Teams. Add Regional Divisions for B-Teams as well, just in case
     public static String club(int dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, int yearFounded, String city, String stadium, int rep, XSSFColor fgColorCell, XSSFColor bgColorCell, String division, String lastDivision, String homeKitType, XSSFColor homeKitFG, XSSFColor homeKitBG, String awayKitType, XSSFColor awayKitFG, XSSFColor awayKitBG) {
         int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
@@ -299,6 +298,7 @@ public class Templates {
                         "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                         "\t\t</record>" +
 
+                        RegionalDivisionHelper.selectRegionalDivision(dbUniqueID, division) +
                         kit(dbUniqueID, homeKitType, homeKitFG, homeKitBG, awayKitType, awayKitFG, awayKitBG)
                 ;
     }
