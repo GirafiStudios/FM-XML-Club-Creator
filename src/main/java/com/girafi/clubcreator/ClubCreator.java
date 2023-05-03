@@ -12,8 +12,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-//TODO Implement way to add Regional Divisions for existing teams
-//TODO Implement way to add existing teams to Divisions
+//TODO Implement way to add Regional Divisions for existing teams (Level
+//TODO Implement way to add existing teams to Divisions (Danish Lower Division only, add Regional Divisions for them at the same time)
 public class ClubCreator {
     public static final String EXCEL_INPUT = "./clubs.xlsx";
     public static final String XML_OUTPUT = "xmlOutput.xml";

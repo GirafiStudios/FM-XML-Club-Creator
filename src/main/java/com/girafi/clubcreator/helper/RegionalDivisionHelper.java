@@ -749,14 +749,14 @@ public class RegionalDivisionHelper {
                         "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                         "\t\t</record>\n" +
 
-                        //DS 4 level
+                        //DS4 level
                         "\t\t<record>\n" +
                         "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
                         "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
                         "\t\t\t<unsigned id=\"property\" value=\"1131570284\"/>\n" +
                         "\t\t\t<record id=\"new_value\">\n" +
                         "\t\t\t\t<unsigned id=\"id\" value=\"1818588773\"/>\n" +
-                        "\t\t\t\t<integer id=\"value\" value=\"6\"/>\n" +
+                        "\t\t\t\t<integer id=\"value\" value=\"5\"/>\n" +
                         "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
                         "\t\t\t\t<record id=\"olvl\">\n" +
                         "\t\t\t\t\t<null id=\"competition\"/>\n" +
@@ -782,7 +782,7 @@ public class RegionalDivisionHelper {
                         "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
                         "\t\t\t\t<record id=\"olvl\">\n" +
                         "\t\t\t\t\t<null id=\"competition\"/>\n" +
-                        "\t\t\t\t\t<integer id=\"leve\" value=\"6\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"leve\" value=\"5\"/>\n" +
                         "\t\t\t\t\t<null id=\"year\"/>\n" +
                         "\t\t\t\t</record>\n" +
                         "\t\t\t</record>\n" +
@@ -811,7 +811,7 @@ public class RegionalDivisionHelper {
                         "\t\t\t<unsigned id=\"property\" value=\"1131570284\"/>\n" +
                         "\t\t\t<record id=\"new_value\">\n" +
                         "\t\t\t\t<unsigned id=\"id\" value=\"1818588773\"/>\n" +
-                        "\t\t\t\t<integer id=\"value\" value=\"6\"/>\n" +
+                        "\t\t\t\t<integer id=\"value\" value=\"5\"/>\n" +
                         "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
                         "\t\t\t\t<record id=\"olvl\">\n" +
                         "\t\t\t\t\t<null id=\"competition\"/>\n" +
@@ -837,7 +837,7 @@ public class RegionalDivisionHelper {
                         "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
                         "\t\t\t\t<record id=\"olvl\">\n" +
                         "\t\t\t\t\t<null id=\"competition\"/>\n" +
-                        "\t\t\t\t\t<integer id=\"leve\" value=\"6\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"leve\" value=\"5\"/>\n" +
                         "\t\t\t\t\t<null id=\"year\"/>\n" +
                         "\t\t\t\t</record>\n" +
                         "\t\t\t</record>\n" +
