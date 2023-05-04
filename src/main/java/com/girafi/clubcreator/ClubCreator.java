@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-//TODO Implement way to add existing teams to Divisions (Danish Lower Division only)
 public class ClubCreator {
     public static final String EXCEL_INPUT = "./clubs.xlsx";
     public static final String XML_OUTPUT = "xmlOutput.xml";
@@ -32,7 +31,7 @@ public class ClubCreator {
             CityBuilder.run(fileWriter, workbook);
             StadiumBuilder.run(fileWriter, workbook);
             ClubBuilder.run(fileWriter, workbook);
-            ExcistingTeamsHandler.run(fileWriter, workbook);
+            ExistingTeamsHandler.run(fileWriter, workbook);
             fileWriter.write(Templates.endTemplate());
             fileWriter.close();
 
