@@ -15,7 +15,6 @@ public class ClubBuilder {
     public static void run(FileWriter fileWriter, Workbook workbook) throws IOException {
         Sheet sheet = workbook.getSheetAt(0); //Clubs Sheet
 
-        //Clubs
         sheet.forEach(row -> {
             if (row.getRowNum() > 0) { //Ignore headers
                 try {

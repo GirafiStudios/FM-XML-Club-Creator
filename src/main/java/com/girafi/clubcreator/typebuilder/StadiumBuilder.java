@@ -15,7 +15,6 @@ public class StadiumBuilder {
     public static void run(FileWriter fileWriter, Workbook workbook) throws IOException {
         Sheet sheet = workbook.getSheetAt(3); //Stadiums Sheet
 
-        //Clubs
         sheet.forEach(row -> {
             if (row.getRowNum() > 0) { //Ignore headers
                 try {

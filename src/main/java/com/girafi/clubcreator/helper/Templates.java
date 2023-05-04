@@ -298,7 +298,7 @@ public class Templates {
                         "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                         "\t\t</record>" +
 
-                        RegionalDivisionHelper.selectRegionalDivision(dbUniqueID, division) +
+                        RegionalDivisionHelper.selectRegionalDivision(dbUniqueID, division, true) +
                         kit(dbUniqueID, homeKitType, homeKitFG, homeKitBG, awayKitType, awayKitFG, awayKitBG)
                 ;
     }

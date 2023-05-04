@@ -15,7 +15,6 @@ public class CityBuilder {
     public static void run(FileWriter fileWriter, Workbook workbook) throws IOException {
         Sheet sheet = workbook.getSheetAt(2); //City Sheet
 
-        //Clubs
         sheet.forEach(row -> {
             if (row.getRowNum() > 0) { //Ignore headers
                 try {
