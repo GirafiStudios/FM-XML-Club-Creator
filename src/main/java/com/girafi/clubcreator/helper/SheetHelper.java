@@ -1,24 +1,43 @@
 package com.girafi.clubcreator.helper;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Color;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 
 public class SheetHelper {
 
     public static String cell(Cell cell) {
-        return cell.toString();
+        try {
+            return cell.toString();
+        } catch (Exception e) {
+            System.out.println("Crashed at Cell - Column: " + cell.getColumnIndex() + " - Row: " + cell.getRowIndex());
+            throw new RuntimeException(e);
+        }
     }
 
     public static int cellNumber(Cell cell) {
-        return (int) cellDouble(cell);
+        try {
+            return (int) cellDouble(cell);
+        } catch (Exception e) {
+            System.out.println("Crashed at Cell - Column: " + cell.getColumnIndex() + " - Row: " + cell.getRowIndex());
+            throw new RuntimeException(e);
+        }
     }
 
     public static double cellDouble(Cell cell) {
-        return cell.getNumericCellValue();
+        try {
+            return cell.getNumericCellValue();
+        } catch (Exception e) {
+            System.out.println("Crashed at Cell - Column: " + cell.getColumnIndex() + " - Row: " + cell.getRowIndex());
+            throw new RuntimeException(e);
+        }
     }
 
     public static XSSFColor hexColorBG(Cell cell) {
-        return (XSSFColor) cell.getCellStyle().getFillForegroundColorColor();
+        try {
+            return (XSSFColor) cell.getCellStyle().getFillForegroundColorColor();
+        } catch (Exception e) {
+            System.out.println("Crashed at Cell - Column: " + cell.getColumnIndex() + " - Row: " + cell.getRowIndex());
+            throw new RuntimeException(e);
+        }
     }
 }

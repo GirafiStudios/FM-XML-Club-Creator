@@ -18,7 +18,14 @@ public class CityBuilder {
         sheet.forEach(row -> {
             if (row.getRowNum() > 0) { //Ignore headers
                 try {
-                    fileWriter.write(Templates.city(ClubCreator.START_CITY_UNIQUE_ID + row.getRowNum(), cell(row.getCell(0)), cellNumber(row.getCell(1)), cellNumber(row.getCell(2)), cell(row.getCell(3)), cellDouble(row.getCell(4)), cellDouble(row.getCell(5)), cellNumber(row.getCell(6))));
+                    fileWriter.write(Templates.city(
+                            ClubCreator.START_CITY_UNIQUE_ID + row.getRowNum(),
+                            cell(row.getCell(0)), //Name
+                            cellNumber(row.getCell(1)), //Region ID
+                            cellNumber(row.getCell(2)), //Attraction (Number)
+                            cell(row.getCell(3)), //Inhabitants Range
+                            cellDouble(row.getCell(4)), //Latitude
+                            cellDouble(row.getCell(5)))); //Longitude
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

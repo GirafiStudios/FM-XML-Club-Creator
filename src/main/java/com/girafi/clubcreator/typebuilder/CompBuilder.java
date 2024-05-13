@@ -19,7 +19,14 @@ public class CompBuilder {
         sheet.forEach(row -> {
             if (row.getRowNum() > 0) { //Ignore headers
                 try {
-                    fileWriter.write(Templates.comp(ClubCreator.START_COMP_UNIQUE_ID + row.getRowNum(), cell(row.getCell(0)), cell(row.getCell(1)), cell(row.getCell(2)), cell(row.getCell(3)), cellNumber(row.getCell(4)), cellNumber(row.getCell(5))));
+                    fileWriter.write(Templates.comp(
+                            ClubCreator.START_COMP_UNIQUE_ID + row.getRowNum(),
+                            cell(row.getCell(0)), //Name
+                            cell(row.getCell(1)), //Short Name
+                            cell(row.getCell(2)), //3-Letter Name
+                            cell(row.getCell(3)), //Parent Comp
+                            cellNumber(row.getCell(4)), //Reputation
+                            cellNumber(row.getCell(5)))); //Level
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

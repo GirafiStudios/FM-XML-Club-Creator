@@ -22,7 +22,7 @@ public class Templates {
         long cityID = UtilityHelper.isNumeric(city) ? Integer.parseInt(city) : cityIDMap.get(city);
         long stadiumID = UtilityHelper.isNumeric(stadium) ? Integer.parseInt(stadium) : stadiumIDMap.get(stadium);
         long divisionID = UtilityHelper.isNumeric(division) ? Integer.parseInt(division) : divIDMap.get(division);
-        long lastDivisionID = UtilityHelper.isNumeric(lastDivision) ? Integer.parseInt(lastDivision) : divIDMap.get(lastDivision);
+        long lastDivisionID = !lastDivision.isEmpty() ? UtilityHelper.isNumeric(lastDivision) ? Integer.parseInt(lastDivision) : divIDMap.get(lastDivision) : -1;
 
         clubIDMap.put(fullName, dbUniqueID);
         long aTeamID = 0;
@@ -206,6 +206,7 @@ public class Templates {
                         "\t\t</record>\n" +
 
                         //Last Division NOTE: Works, but does not show up under changes in Editor
+                        (lastDivisionID != -1 ? //Allow for last division not being set
                         "\t\t<record>\n" +
                         "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
                         "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
@@ -215,7 +216,7 @@ public class Templates {
                         "\t\t\t</record>\n" +
                         "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
                         "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
-                        "\t\t</record>" +
+                        "\t\t</record>" : "" ) +
 
                         //Stadium
                         "\t\t<record>\n" +
@@ -995,8 +996,11 @@ public class Templates {
                 ;
     }
 
-    public static String city(int dbUniqueID, String name, int regionID, int attraction, String inhabitants, double latitude, double longitude, int altitude) {
+    public static String city(int dbUniqueID, String name, int regionID, int attraction, String inhabitants, double latitude, double longitude) {
         int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
+        int altitude = 2; //Setting default altitude to 2 meters, to save time on creating cities in spreadsheet
+
+        name = name.trim();
 
         cityIDMap.put(name, dbUniqueID);
         name = new String(name.getBytes(StandardCharsets.UTF_8)); //Correct name format after adding to map, as HashMaps does not like special letters
