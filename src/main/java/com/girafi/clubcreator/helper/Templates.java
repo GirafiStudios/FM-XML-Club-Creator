@@ -22,7 +22,7 @@ public class Templates {
         long cityID = UtilityHelper.isNumeric(city) ? Integer.parseInt(city) : cityIDMap.get(city);
         long stadiumID = UtilityHelper.isNumeric(stadium) ? Integer.parseInt(stadium) : stadiumIDMap.get(stadium);
         long divisionID = UtilityHelper.isNumeric(division) ? Integer.parseInt(division) : divIDMap.get(division);
-        long lastDivisionID = !lastDivision.isEmpty() ? UtilityHelper.isNumeric(lastDivision) ? Integer.parseInt(lastDivision) : divIDMap.get(lastDivision) : -1;
+        long lastDivisionID = !lastDivision.isEmpty() ? (UtilityHelper.isNumeric(lastDivision) ? Integer.parseInt(lastDivision) : divIDMap.get(lastDivision)) : -1;
 
         clubIDMap.put(fullName, dbUniqueID);
         long aTeamID = 0;
