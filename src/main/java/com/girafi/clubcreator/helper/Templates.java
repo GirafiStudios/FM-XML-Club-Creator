@@ -8,13 +8,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 public class Templates {
-    public static HashMap<String, Integer> parentIDMap = new HashMap<>();
+    public static HashMap<String, Integer> parentCompIDMap = new HashMap<>();
     public static HashMap<String, Integer> divIDMap = new HashMap<>();
     public static HashMap<String, Integer> cityIDMap = new HashMap<>();
     public static HashMap<String, Integer> stadiumIDMap = new HashMap<>();
+    public static HashMap<String, Integer> clubIDMap = new HashMap<>();
 
-    //TODO Figure out what to do with B-Teams/C-teams etc.
-    public static String club(int dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, int yearFounded, String city, String stadium, int rep, XSSFColor fgColorCell, XSSFColor bgColorCell, String division, String lastDivision, String homeKitType, XSSFColor homeKitFG, XSSFColor homeKitBG, String awayKitType, XSSFColor awayKitFG, XSSFColor awayKitBG) {
+    //TODO Figure implement B-Teams/C-teams functionality fully
+    public static String club(int dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, int yearFounded, String city, String stadium, String rep, XSSFColor fgColorCell, XSSFColor bgColorCell, String division, String lastDivision, String homeKitType, XSSFColor homeKitFG, XSSFColor homeKitBG, String awayKitType, XSSFColor awayKitFG, XSSFColor awayKitBG, String aTeam, String teamType) {
         int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
         Color fgColor = UtilityHelper.toColor(fgColorCell);
         Color bgColor = UtilityHelper.toColor(bgColorCell);
@@ -22,6 +23,12 @@ public class Templates {
         long stadiumID = UtilityHelper.isNumeric(stadium) ? Integer.parseInt(stadium) : stadiumIDMap.get(stadium);
         long divisionID = UtilityHelper.isNumeric(division) ? Integer.parseInt(division) : divIDMap.get(division);
         long lastDivisionID = UtilityHelper.isNumeric(lastDivision) ? Integer.parseInt(lastDivision) : divIDMap.get(lastDivision);
+
+        clubIDMap.put(fullName, dbUniqueID);
+        long aTeamID = 0;
+        if (!aTeam.isEmpty()) {
+            aTeamID = UtilityHelper.isNumeric(aTeam) ? Integer.parseInt(aTeam) : clubIDMap.get(aTeam);
+        }
 
         //Correct name format after adding to map, as HashMaps does not like special letters
         fullName = new String(fullName.getBytes(StandardCharsets.UTF_8));
@@ -145,14 +152,14 @@ public class Templates {
                         "\t\t</record>" +
 
                         //Reputation NOTE: Works, but does not show up under changes in Editor
-                        "\t\t<record>\n" +
+                        (!rep.isEmpty() ? "\t\t<record>\n" +
                         "\t\t\t<integer id=\"database_table_type\" value=\"3\"/>\n" +
                         "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
                         "\t\t\t<unsigned id=\"property\" value=\"1131570544\"/>\n" +
                         "\t\t\t<integer id=\"new_value\" value=\"" + rep + "\"/>\n" +
                         "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
                         "\t\t\t<integer id=\"db_random_id\" value=\"159837637\"/>\n" +
-                        "\t\t</record>" +
+                        "\t\t</record>" : "") +
 
                         //Professional Status (Always Amateur) NOTE: Works, but does not show up under changes in Editor
                         "\t\t<record>\n" +
@@ -299,7 +306,7 @@ public class Templates {
                         "\t\t</record>" +
 
                         RegionalDivisionHelper.selectRegionalDivision(dbUniqueID, division, true) +
-                        kit(dbUniqueID, homeKitType, homeKitFG, homeKitBG, awayKitType, awayKitFG, awayKitBG)
+                        (homeKitBG != null ? kit(dbUniqueID, homeKitType, homeKitFG, homeKitBG, awayKitType, awayKitFG, awayKitBG) : "" )
                 ;
     }
 
@@ -309,7 +316,7 @@ public class Templates {
         divIDMap.put(fullName, dbUniqueID);
 
         if (parent.equalsIgnoreCase("Parent")) {
-            parentIDMap.put(fullName, dbUniqueID);
+            parentCompIDMap.put(fullName, dbUniqueID);
         }
 
         //Correct name format after adding to map, as HashMaps does not like special letters
@@ -785,7 +792,7 @@ public class Templates {
                         "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID + "\"/>\n" +
                         "\t\t\t<unsigned id=\"property\" value=\"1668309869\"/>\n" +
                         "\t\t\t<record id=\"new_value\">\n" +
-                        "\t\t\t\t<integer id=\"competition\" value=\"" + (parent.equalsIgnoreCase("Parent") ? "" : parentIDMap.get(parent)) + "\"/>\n" +
+                        "\t\t\t\t<integer id=\"competition\" value=\"" + (parent.equalsIgnoreCase("Parent") ? "" : parentCompIDMap.get(parent)) + "\"/>\n" +
                         "\t\t\t</record>\n" +
                         "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
                         "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
