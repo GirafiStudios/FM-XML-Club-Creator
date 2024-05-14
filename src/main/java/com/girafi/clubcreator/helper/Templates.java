@@ -813,6 +813,7 @@ public class Templates {
 
         long cityID = UtilityHelper.isNumeric(city) ? Integer.parseInt(city) : cityIDMap.get(city);
 
+        name = name.trim();
         stadiumIDMap.put(name, dbUniqueID);
         name = new String(name.getBytes(StandardCharsets.UTF_8)); //Correct name format after adding to map, as HashMaps does not like special letters
 
