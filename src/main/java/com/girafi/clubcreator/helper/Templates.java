@@ -19,6 +19,11 @@ public class Templates {
         int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
         Color fgColor = UtilityHelper.toColor(fgColorCell);
         Color bgColor = UtilityHelper.toColor(bgColorCell);
+
+        city = city.trim();
+        stadium = stadium.trim();
+        division = division.trim();
+        lastDivision = lastDivision.trim();
         long cityID = UtilityHelper.isNumeric(city) ? Integer.parseInt(city) : cityIDMap.get(city);
         long stadiumID = UtilityHelper.isNumeric(stadium) ? Integer.parseInt(stadium) : stadiumIDMap.get(stadium);
         long divisionID = UtilityHelper.isNumeric(division) ? Integer.parseInt(division) : divIDMap.get(division);

@@ -19,16 +19,7 @@ public class UtilityHelper {
 
     public static boolean isNumeric(String s) {
         try {
-            Double.parseDouble(s);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    public static boolean isLong(String s) {
-        try {
-            Long.parseLong(s);
+            Integer.parseInt(s);
             return true;
         } catch (NumberFormatException e) {
             return false;
