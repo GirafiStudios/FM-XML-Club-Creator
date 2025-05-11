@@ -15,7 +15,7 @@ public class Templates {
     public static HashMap<String, Integer> clubIDMap = new HashMap<>();
 
     //TODO Figure implement B-Teams/C-teams functionality fully
-    public static String club(int dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, int yearFounded, String city, String stadium, String rep, XSSFColor fgColorCell, XSSFColor bgColorCell, String division, String lastDivision, String homeKitType, XSSFColor homeKitFG, XSSFColor homeKitBG, String awayKitType, XSSFColor awayKitFG, XSSFColor awayKitBG, String aTeam, String teamType) {
+    public static String club(int dbUniqueID, String fullName, String shortName, String sixLetterName, String threeLetterName, String altTLN, int yearFounded, String city, String stadium, String rep, XSSFColor fgColorCell, XSSFColor bgColorCell, String division, String group, String lastDivision, String homeKitType, XSSFColor homeKitFG, XSSFColor homeKitBG, String awayKitType, XSSFColor awayKitFG, XSSFColor awayKitBG, String aTeam, String teamType) {
         int fmxmlIDVersion = ClubCreator.FM_XML_ID_VERSION;
         Color fgColor = UtilityHelper.toColor(fgColorCell);
         Color bgColor = UtilityHelper.toColor(bgColorCell);
@@ -27,13 +27,15 @@ public class Templates {
         long cityID = UtilityHelper.isNumeric(city) ? Integer.parseInt(city) : cityIDMap.get(city);
         long stadiumID = UtilityHelper.isNumeric(stadium) ? Integer.parseInt(stadium) : stadiumIDMap.get(stadium);
         long divisionID = UtilityHelper.isNumeric(division) ? Integer.parseInt(division) : divIDMap.get(division);
+        long divisionGroup = UtilityHelper.isNumeric(group) ? Integer.parseInt(group) : -1;
         long lastDivisionID = !lastDivision.isEmpty() ? (UtilityHelper.isNumeric(lastDivision) ? Integer.parseInt(lastDivision) : divIDMap.get(lastDivision)) : -1;
 
         clubIDMap.put(fullName, dbUniqueID);
-        long aTeamID = 0;
+        long aTeamID = -1;
         if (!aTeam.isEmpty()) {
             aTeamID = UtilityHelper.isNumeric(aTeam) ? Integer.parseInt(aTeam) : clubIDMap.get(aTeam);
         }
+
 
         //Correct name format after adding to map, as HashMaps does not like special letters
         fullName = new String(fullName.getBytes(StandardCharsets.UTF_8));
@@ -209,6 +211,52 @@ public class Templates {
                         "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
                         "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
                         "\t\t</record>\n" +
+
+                        //Division Group
+                        (divisionGroup != -1 ? "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"25\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"" + dbUniqueID +"\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1668441972\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"1768842863\"/>\n" +
+                        "\t\t\t\t<integer id=\"value\" value=\"1\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<record id=\"Ttea\">\n" +
+                        "\t\t\t\t\t\t<large id=\"Ttea\" value=\"7323984393274656\"/>\n" +
+                        "\t\t\t\t\t</record>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"info\" value=\"0\"/>\n" +
+                        "\t\t\t\t\t<record id=\"nation\">\n" +
+                        "\t\t\t\t\t\t<large id=\"Nnat\" value=\"3281355014908\"/>\n" +
+                        "\t\t\t\t\t</record>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"3569\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"536047237\"/>\n" +
+                        "\t\t</record>\n" +
+                        "\t\t<record>\n" +
+                        "\t\t\t<integer id=\"database_table_type\" value=\"25\"/>\n" +
+                        "\t\t\t<large id=\"db_unique_id\" value=\"8590004438758183814\"/>\n" +
+                        "\t\t\t<unsigned id=\"property\" value=\"1668441972\"/>\n" +
+                        "\t\t\t<record id=\"new_value\">\n" +
+                        "\t\t\t\t<unsigned id=\"id\" value=\"2036687218\"/>\n" +
+                        "\t\t\t\t<integer id=\"value\" value=\"" + ClubCreator.START_YEAR + "\"/>\n" +
+                        "\t\t\t\t<integer id=\"lsop\" value=\"1\"/>\n" +
+                        "\t\t\t\t<record id=\"olvl\">\n" +
+                        "\t\t\t\t\t<record id=\"Ttea\">\n" +
+                        "\t\t\t\t\t\t<large id=\"Ttea\" value=\"7323984393274656\"/>\n" +
+                        "\t\t\t\t\t</record>\n" +
+                        "\t\t\t\t\t<null id=\"year\"/>\n" +
+                        "\t\t\t\t\t<integer id=\"info\" value=\"1\"/>\n" +
+                        "\t\t\t\t\t<record id=\"nation\">\n" +
+                        "\t\t\t\t\t\t<large id=\"Nnat\" value=\"3281355014908\"/>\n" + //Always Denmark
+                        "\t\t\t\t\t</record>\n" +
+                        "\t\t\t\t</record>\n" +
+                        "\t\t\t</record>\n" +
+                        "\t\t\t<integer id=\"version\" value=\"" + fmxmlIDVersion + "\"/>\n" +
+                        "\t\t\t<integer id=\"db_random_id\" value=\"" + UtilityHelper.getRandomID() + "\"/>\n" +
+                        "\t\t</record>" : "") +
 
                         //Last Division NOTE: Works, but does not show up under changes in Editor
                         (lastDivisionID != -1 ? //Allow for last division not being set

@@ -15,6 +15,7 @@ import java.io.IOException;
 public class ClubCreator {
     public static final String EXCEL_INPUT = "./clubs.xlsx";
     public static final String XML_OUTPUT = "xmlOutput.xml";
+    public static final int START_YEAR = 2024;
     public static final int FM_XML_ID_VERSION = 3509;
     public static final int START_CLUB_UNIQUE_ID = 2000247394;
     public static final int START_COMP_UNIQUE_ID = 2000239372;

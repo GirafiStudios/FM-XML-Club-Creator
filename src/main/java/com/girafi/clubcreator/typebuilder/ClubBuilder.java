@@ -31,15 +31,16 @@ public class ClubBuilder {
                             hexColorBG(row.getCell(9)), //Titlebar Color FG
                             hexColorBG(row.getCell(10)), //Titlebar Color BG
                             cell(row.getCell(11)), //Division Name/ID
-                            cell(row.getCell(12)), //Last Division Name/ID
-                            cell(row.getCell(13)), //Home Kit Type
-                            hexColorBG(row.getCell(14)), //Home Kit FG Color
-                            hexColorBG(row.getCell(15)), //Home Kit BG Color
-                            cell(row.getCell(16)), //Away Kit Type
-                            hexColorBG(row.getCell(17)), //Away Kit FG Color
-                            hexColorBG(row.getCell(18)), //Away Kit BG Color
-                            cell(row.getCell(19)), //A-Team Name/ID (For reserve teams only)
-                            cell(row.getCell(20)))); //Reserve Team Type (For reserve teams only
+                            cell(row.getCell(12)), //Division Group //TODO Unimplemented
+                            cell(row.getCell(13)), //Last Division Name/ID
+                            cell(row.getCell(14)), //Home Kit Type
+                            hexColorBG(row.getCell(15)), //Home Kit FG Color
+                            hexColorBG(row.getCell(16)), //Home Kit BG Color
+                            cell(row.getCell(17)), //Away Kit Type
+                            hexColorBG(row.getCell(18)), //Away Kit FG Color
+                            hexColorBG(row.getCell(19)), //Away Kit BG Color
+                            cell(row.getCell(20)), //A-Team Name/ID (For reserve teams only)
+                            cell(row.getCell(21)))); //Reserve Team Type (For reserve teams only
                 } catch (Exception e) {
                     System.out.println("Club creation failed for: " + cell(row.getCell(1)));
                     throw new RuntimeException(e);

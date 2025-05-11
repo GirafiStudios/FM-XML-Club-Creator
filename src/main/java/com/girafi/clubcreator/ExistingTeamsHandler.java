@@ -21,9 +21,10 @@ public class ExistingTeamsHandler {
             if (row.getRowNum() > 0) { //Ignore headers
                 try {
                     int dbID = cellNumber(row.getCell(0));
-                    String originalDivisionName = cell(row.getCell(2));
-                    String originalLastDivisionName = cell(row.getCell(3));
-                    String divisionName = cell(row.getCell(4));
+                    String originalDivisionName = cell(row.getCell(1));
+                    String originalLastDivisionName = cell(row.getCell(2));
+                    String divisionName = cell(row.getCell(3));
+                    String group = cell(row.getCell(4)); //TODO Implement
                     String lastDivisionName = cell(row.getCell(5));
                     String regionalDivision = cell(row.getCell(6));
 
